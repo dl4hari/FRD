@@ -1,20 +1,61 @@
 package com.fp.beans;
 
-import com.fp.model.FraudIntakeActivity;
-import com.fp.model.FraudIntakeMaster;
-import com.fp.model.FraudIntakeSubject;
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
+import java.math.BigDecimal;
+
 @Getter
 @Setter
-@NoArgsConstructor
+@Data
 public class FraudIntakeMasterBean implements Serializable {
-    FraudIntakeMaster fraudIntakeMaster;
-    private List<DropdownBean> subServiceList;
+
+    public BigDecimal fraudIntakeId;
+
+    public String reportingUserId;
+
+    public String reportDt;
+
+    public String reportType;
+
+    public String fraudTypeCd;
+
+    public String subjectIn;
+
+    public String subjectTypeCd;
+
+    public String subjectTaxId;
+
+    public String customerId;
+
+    public String impactAccountName;
+
+    public String custTypeCd;
+
+    public String acctTakeoverIn;
+
+    public String idTheftRelatedIn;
+
+    public String eventDetailsDesc;
+
+    public String elderExploitIn;
+
+    public String referralReportedBy;
+
+    public String referralDeptNm;
+
+    public String matterIdentifiedCd;
+
+    public String attachment;
+
+    public String auditId;
+
+    public String auditUpdtTs;
+
+    private FraudIntakeSubjectBean fraudIntakeSubjectBean;
+    private FraudIntakeActivityBean fraudIntakeActivityBean;
+
+
 }

@@ -1,10 +1,16 @@
 package com.fp.model;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
+import java.math.BigDecimal;
 
+@Getter
+@Setter
+@Data
 @Entity
 @Table(name = "FRAUD_INTAKE_MASTER")
 public class FraudIntakeMaster implements Serializable {
@@ -12,7 +18,7 @@ public class FraudIntakeMaster implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FRAUD_INTAKE_ID")
-    public String fraudIntakeId;
+    public BigDecimal fraudIntakeId;
 
     @Column(name = "REPORTING_USER_ID")
     public String reportingUserId;
@@ -74,16 +80,5 @@ public class FraudIntakeMaster implements Serializable {
     @Column(name = "AUDIT_UPDT_TS")
     public String auditUpdtTs;
 
-    @OneToMany(targetEntity =FraudIntakeActivity.class, fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Set<FraudIntakeActivity> fraudIntakeActivity;
 
-    @OneToMany(targetEntity = FraudIntakeActivity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "SECURITY_RULE_ID", referencedColumnName = "SECURITY_RULE_ID")
-
-    private List<Object> security_Rule_Params;
-
-    @OneToMany(mappedBy = "fraudIntakeMaster", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Set<FraudIntakeSubject> fraudIntakeSubject;
 }

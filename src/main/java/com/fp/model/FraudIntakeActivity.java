@@ -1,8 +1,16 @@
 package com.fp.model;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
+@Getter
+@Setter
+@Data
 @Entity
 @Table(name = "FRAUD_INTAKE_ACTIVITY")
 public class FraudIntakeActivity implements Serializable {
@@ -10,9 +18,9 @@ public class FraudIntakeActivity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FRAUD_ACTIVITY_ID")
-    public String fraudActivityId;
+    public BigDecimal fraudActivityId;
 
-    @Column(name = "FRAUD_INTAKE_ID")
+    @Column(name = "FRAUD_INTAKE_ID", insertable = false, updatable = false)
     public String fraudIntakeId;
 
     @Column(name = "PRODUCT_TYPE")
@@ -45,7 +53,5 @@ public class FraudIntakeActivity implements Serializable {
     @Column(name = "TRANSACTION_RECALL")
     public String transactionRecall;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "FRAUD_INTAKE_ID", nullable = false)
-    private FraudIntakeMaster fraudIntakeMaster;
+
 }

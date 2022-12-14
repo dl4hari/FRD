@@ -1,18 +1,28 @@
 package com.fp.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+@Getter
+@Setter
+@Data
 @Entity
 @Table(name = "FRAUD_INTAKE_SUBJECT")
 public class FraudIntakeSubject implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FRAUD_SUBJECT_ID")
-    public String fraudSubjectId;
+    public BigDecimal fraudSubjectId;
 
-    @Column(name = "FRAUD_INTAKE_ID")
+    @Column(name = "FRAUD_INTAKE_ID", insertable = false, updatable = false)
     public String fraudIntakeId;
 
     @Column(name = "SUBJECT_TYPE")
@@ -46,7 +56,5 @@ public class FraudIntakeSubject implements Serializable {
     @Column(name = "TRANSACTION_RECALL")
     public String transactionRecall;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "FRAUD_INTAKE_ID", nullable = false)
-    private FraudIntakeMaster fraudIntakeMaster;
+
 }

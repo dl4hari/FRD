@@ -1,10 +1,10 @@
 package com.fp.repository;
 
-import com.fp.model.FraudIntakeCodes;
+import com.fp.model.FraudIntakeActivity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FraudIntakeCodesRepository extends JpaRepository<FraudIntakeCodes, String> {
+public interface FraudIntakeActivityRepository extends JpaRepository<FraudIntakeActivity, Long> {
 
 }
