@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,7 +32,7 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String customerId;
 
-    public String impactAccountName;
+    public List<String> impactAccountName=new ArrayList<>();
 
     public String custTypeCd;
 
@@ -54,8 +56,8 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String auditUpdtTs;
 
-    private FraudIntakeSubjectBean fraudIntakeSubjectBean;
-    private FraudIntakeActivityBean fraudIntakeActivityBean;
+    private List<FraudIntakeSubjectBean> fraudIntakeSubjectBean;
+    private List<FraudIntakeActivityBean> fraudIntakeActivityBean;
 
 
 }

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FraudIntakeMasterRepository extends JpaRepository<FraudIntakeMaster, Long> {
+public interface FraudIntakeMasterRepository extends JpaRepository<FraudIntakeMaster, String> {
 
 //    @Transactional
 //    @Modifying

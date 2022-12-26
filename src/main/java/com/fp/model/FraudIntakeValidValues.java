@@ -14,16 +14,17 @@ import java.io.Serializable;
 @Getter
 @Data
 @Entity
-@Table(name = "FRAUD_INTAKE_VALID_VALUES")
+@Table(name = "fraud_intake_valid_values")
 public class FraudIntakeValidValues implements Serializable {
 
-    @Id
-    @Column(name = "FRAUD_REF_CD", insertable = false, updatable = false)
+
+    @Column(name = "FRAUD_REF_CD")
     public String fraudRefCd;
 
     @Column(name = "FRAUD_REF_VALUE_ID")
     public String fraudRefValueId;
 
+    @Id
     @Column(name = "FRAUD_REF_VALUE_CD")
     public String fraudRefValueCd;
     @Column(name = "FRAUD_REF_VALUE_DESC")

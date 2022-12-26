@@ -72,7 +72,7 @@ public class FraudIntakeMaster implements Serializable {
     public String matterIdentifiedCd;
 
     @Column(name = "ATTACHMENT")
-    public String attachment;
+    public byte[]  attachment;
 
     @Column(name = "AUDIT_ID")
     public String auditId;

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -18,4 +19,5 @@ public class FraudIntakeCodeBean implements Serializable {
     private String auditUserId;
     private String auditDt;
     private List<FraudIntakeValidValuesBean> fraudIntakeValidValuesBean;
+    Map<String, List<String>> dropDownList;
 }

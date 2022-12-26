@@ -15,4 +15,5 @@ public interface FraudIntakeMasterService {
             throws FRMException;
 
 
+    FraudIntakeMasterRequest edit(FraudIntakeMasterRequest request);
 }
