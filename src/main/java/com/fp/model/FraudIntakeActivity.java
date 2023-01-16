@@ -53,5 +53,8 @@ public class FraudIntakeActivity implements Serializable {
     @Column(name = "TRANSACTION_RECALL")
     public String transactionRecall;
 
+    @Column(name = "TYPE_WIRE_TRANSFER")
+    public String typeOfWireTransfer;
+
 
 }
