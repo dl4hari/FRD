@@ -4,8 +4,10 @@ import com.fp.model.FraudIntakeMaster;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+
 @Repository
-public interface FraudIntakeMasterRepository extends JpaRepository<FraudIntakeMaster, String> {
+public interface FraudIntakeMasterRepository extends JpaRepository<FraudIntakeMaster, BigDecimal> {
 
 //    @Transactional
 //    @Modifying

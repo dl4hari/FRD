@@ -12,6 +12,7 @@ import java.util.Map;
 @Getter
 @Data
 public class FraudIntakeCodeBean implements Serializable {
+    Map<String, List<String>> dropDownList;
     private String fraudRefCd;
     private String fraudRefType;
     private String uiControlOptionCd;
@@ -19,5 +20,4 @@ public class FraudIntakeCodeBean implements Serializable {
     private String auditUserId;
     private String auditDt;
     private List<FraudIntakeValidValuesBean> fraudIntakeValidValuesBean;
-    Map<String, List<String>> dropDownList;
 }

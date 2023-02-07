@@ -13,11 +13,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 @CrossOrigin//(origins = "http://localhost:4200")
 @RestController
 public class FraudIntakeMasterController {
     @Autowired
     FraudIntakeMasterService fraudIntakeMasterService;
+
     @ApiOperation(value = "Setting-up to edit form", notes = "Setting-up to edit form")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully fetched new ScheduleTask entity details")})
@@ -68,6 +70,7 @@ public class FraudIntakeMasterController {
         return new ResponseEntity<>(savedFraudIntakeMasterBean, HttpStatus.CREATED);
 
     }
+
     @PostMapping(value = "/fraud-intake/save2", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<FraudIntakeMasterRequest> saveFraudIntakeMaster2(
             @RequestBody FraudIntakeMasterRequest fraudIntakeMasterBean) {

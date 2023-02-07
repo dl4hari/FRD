@@ -2,12 +2,8 @@ package com.fp.service;
 
 import com.fp.beans.*;
 import com.fp.exception.FRMException;
-import com.fp.model.FraudIntakeCodes;
-import com.fp.model.FraudIntakeMaster;
-import com.fp.model.FraudIntakeValidValues;
-import com.fp.repository.FraudIntakeCodesRepository;
-import com.fp.repository.FraudIntakeMasterRepository;
-import com.fp.repository.FraudIntakeValidValuesRepository;
+import com.fp.model.*;
+import com.fp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,10 +20,21 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
     FraudIntakeMasterRepository masterRepository;
 
     @Autowired
-    FraudIntakeCodesRepository codesRepository;
+    FraudIntakeRefRepository codesRepository;
 
     @Autowired
-    private FraudIntakeValidValuesRepository valueRepository;
+    private FraudIntakeRefValuesRepository valueRepository;
+    @Autowired
+    private FraudIntakeObjectRepository fraudIntakeSubjectRepository;
+    @Autowired
+    private FraudIntakeValuesRepository fraudIntakeActivityRepository;
+
+    public static String now() {
+        Calendar cal = Calendar.getInstance();
+        String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
+    }
 
     @Override
     public FraudIntakeMasterRequest addNew() throws FRMException {
@@ -39,9 +46,9 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         //preparing code list
         List<FraudIntakeCodeBean> beanList = new ArrayList<>();
-        List<FraudIntakeCodes> codesList = codesRepository.findAll();
-        Map<String, List<String>> dropDownMap =  new HashMap<>();
-        for (FraudIntakeCodes codes : codesList) {
+        List<FraudIntakeRef> codesList = codesRepository.findAll();
+        Map<String, List<String>> dropDownMap = new HashMap<>();
+        for (FraudIntakeRef codes : codesList) {
             FraudIntakeCodeBean codeBean = new FraudIntakeCodeBean();
             codeBean.setFraudRefCd(codes.getFraudRefCd());
             codeBean.setAuditDt(codes.getAuditDt());
@@ -50,10 +57,10 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             codeBean.setAuditUserId(codes.getAuditUserId());
             codeBean.setUiControlOptionCd(codes.getUiControlOptionCd());
 
-            List<FraudIntakeValidValues> _values = valueRepository.fetchValues(codes.getFraudRefCd());
+            List<FraudIntakeRefValues> _values = valueRepository.fetchValues(codes.getFraudRefCd());
             List<FraudIntakeValidValuesBean> list = new ArrayList<>();
             List<String> values = new ArrayList<>();
-            for (FraudIntakeValidValues validValues : _values) {
+            for (FraudIntakeRefValues validValues : _values) {
                 FraudIntakeValidValuesBean valuesBean = new FraudIntakeValidValuesBean();
                 valuesBean.setFraudRefValueId(validValues.getFraudRefValueId());
                 valuesBean.setFraudRefValueDesc(validValues.getFraudRefValueDesc());
@@ -66,7 +73,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             }
             codeBean.setFraudIntakeValidValuesBean(list);
             beanList.add(codeBean);
-            if(!values.isEmpty()) {
+            if (!values.isEmpty()) {
                 dropDownMap.put(codes.getFraudRefType(), values);
             }
         }
@@ -75,23 +82,117 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         FraudIntakeMasterRequest bean = new FraudIntakeMasterRequest();
         bean.setValueMap(dropDownMap);
         bean.setFraudIntakeMaster(fraudIntakeMaster);
-      //  bean.setFraudIntakeCodes(beanList);
+        //  bean.setFraudIntakeCodes(beanList);
 
         return bean;
     }
 
     @Override
     public FraudIntakeMasterRequest save(FraudIntakeMasterRequest bean, MultipartFile file) throws FRMException {
+
+        //master
         FraudIntakeMaster master = prepareMasterFromBean(bean.getFraudIntakeMaster());
+
         FraudIntakeMaster savedMaster = masterRepository.save(master);
+
         FraudIntakeMasterBean fraudIntakeMaster = prepareBeanFromMaster(savedMaster);
+
+        //subject
+        List<FraudIntakeValues> subjectList = prepareSubjectFromBean(bean.getFraudIntakeMaster().getFraudIntakeSubjectBean());
+        List<FraudIntakeSubjectBean> subjectListSaved = new ArrayList<>();
+        for (FraudIntakeValues subject : subjectList) {
+//            FraudIntakeValues savedSubject = fraudIntakeSubjectRepository.save(subject);
+//            subjectListSaved.add(prepareSubjectBeanFromSaved(savedSubject));
+        }
+
+        //activity
+        List<FraudIntakeObject> activityList = prepareActivityFromBean(bean.getFraudIntakeMaster().getFraudIntakeActivityBean());
+        List<FraudIntakeActivityBean> activityListSaved = new ArrayList<>();
+        for (FraudIntakeObject activity : activityList) {
+//            FraudIntakeObject savedActivity = fraudIntakeActivityRepository.save(activity);
+//            activityListSaved.add(prepareActivityBeanFromSaved(savedActivity));
+        }
+
+
+        fraudIntakeMaster.setFraudIntakeSubjectBean(subjectListSaved);
+
+        fraudIntakeMaster.setFraudIntakeActivityBean(activityListSaved);
+
         bean.setFraudIntakeMaster(fraudIntakeMaster);
 
         return bean;
     }
 
+    private FraudIntakeActivityBean prepareActivityBeanFromSaved(FraudIntakeObject savedActivity) {
+        return null;
+    }
+
+    private List<FraudIntakeObject> prepareActivityFromBean(List<FraudIntakeActivityBean> fraudIntakeActivityBean) {
+        return null;
+    }
+
+    private FraudIntakeSubjectBean prepareSubjectBeanFromSaved(FraudIntakeValues savedSubject) {
+        FraudIntakeSubjectBean bean = new FraudIntakeSubjectBean();
+
+        return bean;
+    }
+
+    private List<FraudIntakeValues> prepareSubjectFromBean(List<FraudIntakeSubjectBean> beanList) {
+
+        List<FraudIntakeValues> toSave = new ArrayList<>();
+        for (FraudIntakeSubjectBean bean : beanList) {
+            toSave.add(convertSubjectToSave(bean));
+        }
+
+        return toSave;
+    }
+
+    private FraudIntakeValues convertSubjectToSave(FraudIntakeSubjectBean bean) {
+        FraudIntakeValues subject = new FraudIntakeValues();
+        // subject.setFraudSubjectId(bean.setFraudSubjectId());
+        return null;
+
+    }
+
     private FraudIntakeMasterBean prepareBeanFromMaster(FraudIntakeMaster savedMaster) {
         FraudIntakeMasterBean bean = new FraudIntakeMasterBean();
+        bean.setFraudIntakeId(savedMaster.getFraudIntakeId());
+
+        bean.setReportingUserId(savedMaster.getReportingUserId());
+        bean.setReportDt(savedMaster.getReportDt());
+        bean.setReportType(savedMaster.getReportType());
+        bean.setFraudTypeCd(savedMaster.getFraudTypeCd());
+        bean.setSubjectIn(savedMaster.getSubjectIn());
+
+        bean.setSubjectTypeCd(savedMaster.getSubjectTypeCd());
+
+        bean.setSubjectTaxId(savedMaster.getSubjectTaxId());
+
+        bean.setCustomerId(savedMaster.getCustomerId());
+
+        bean.setImpactAccountName(Arrays.asList(savedMaster.getImpactAccountName().split(",")));
+
+        bean.setCustTypeCd(savedMaster.getCustTypeCd());
+
+        bean.setAcctTakeoverIn(savedMaster.getAcctTakeoverIn());
+
+        bean.setIdTheftRelatedIn(savedMaster.getIdTheftRelatedIn());
+
+        bean.setEventDetailsDesc(savedMaster.getEventDetailsDesc());
+
+        bean.setElderExploitIn(savedMaster.getElderExploitIn());
+
+        bean.setReferralReportedBy(savedMaster.getReferralReportedBy());
+
+        bean.setReferralDeptNm(savedMaster.getReferralDeptNm());
+
+        bean.setMatterIdentifiedCd(savedMaster.getMatterIdentifiedCd());
+
+        bean.setAttachment(savedMaster.getAuditId());
+
+        bean.setAuditId(savedMaster.getAuditId());
+
+        bean.setAuditUpdtTs(savedMaster.getAuditUpdtTs());
 
 
         return bean;
@@ -110,7 +211,9 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         master.setSubjectTypeCd(bean.getSubjectTypeCd());
         master.setSubjectTaxId(bean.getSubjectTaxId());
         master.setCustomerId(bean.getCustomerId());
-        master.setImpactAccountName(bean.getAttachment());
+
+        master.setImpactAccountName(String.join(",", bean.getImpactAccountName()));
+
         master.setCustTypeCd(bean.getCustTypeCd());
         master.setAcctTakeoverIn(bean.getAcctTakeoverIn());
         master.setIdTheftRelatedIn(bean.getIdTheftRelatedIn());
@@ -120,7 +223,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         master.setReferralReportedBy(bean.getReferralReportedBy());
         master.setReferralDeptNm(bean.getReferralDeptNm());
         master.setMatterIdentifiedCd(bean.getMatterIdentifiedCd());
-        master.setAttachment(null);
+        // master.setAttachment(bean.getAttachment().getBytes());
         master.setAuditId(bean.getAuditId());
         master.setAuditUpdtTs(now());
         System.out.println(master);
@@ -140,12 +243,6 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
     @Override
     public FraudIntakeMasterRequest edit(FraudIntakeMasterRequest request) {
         return null;
-    }
-    public static String now() {
-        Calendar cal = Calendar.getInstance();
-        String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-        return sdf.format(cal.getTime());
     }
 
 }

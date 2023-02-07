@@ -14,22 +14,25 @@ import java.io.Serializable;
 @Getter
 @Data
 @Entity
-@Table(name = "FRAUD_INTAKE_CODES")
-public class FraudIntakeCodes implements Serializable {
+@Table(name = "FRAUD_INTAKE_REF_VALUES")
+public class FraudIntakeRefValues implements Serializable {
 
-    @Id
+
     @Column(name = "FRAUD_REF_CD")
     public String fraudRefCd;
 
-    @Column(name = "FRAUD_REF_TYPE")
-    public String fraudRefType;
-    @Column(name = "UI_CONTROL_OPTION_CD")
-    public String uiControlOptionCd;
-    @Column(name = "FRAUD_REF_DESC")
-    public String fraudRefDesc;
+    @Column(name = "FRAUD_REF_VALUE_ID")
+    public String fraudRefValueId;
+
+    @Id
+    @Column(name = "FRAUD_REF_VALUE_CD")
+    public String fraudRefValueCd;
+
+    @Column(name = "FRAUD_REF_VALUE_DESC")
+    public String fraudRefValueDesc;
+
     @Column(name = "AUDIT_USER_ID")
     public String auditUserId;
-
     @Column(name = "AUDIT_DT")
     public String auditDt;
 

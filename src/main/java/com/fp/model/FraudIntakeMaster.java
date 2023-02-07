@@ -26,6 +26,10 @@ public class FraudIntakeMaster implements Serializable {
     @Column(name = "REPORTING_DT")
     public String reportDt;
 
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @Column(name = "REPORTING_DT")
+//    private Date jobWindowEndDate;
+
     @Column(name = "REPORT_TYPE")
     public String reportType;
 
@@ -71,14 +75,32 @@ public class FraudIntakeMaster implements Serializable {
     @Column(name = "MATTER_IDENTIFIED_CD")
     public String matterIdentifiedCd;
 
-    @Column(name = "ATTACHMENT")
-    public byte[]  attachment;
+//    @Column(name = "ATTACHMENT")
+//    public byte[]  attachment;
 
     @Column(name = "AUDIT_ID")
     public String auditId;
 
     @Column(name = "AUDIT_UPDT_TS")
     public String auditUpdtTs;
+    /////
+    @Column(name = "ANONYMOUS_CD")
+    public String anonymousCd;
+
+    @Column(name = "EMAIL")
+    public String email;
+
+    @Column(name = "PHONE_NO")
+    public String phoneNo;
+
+    @Column(name = "INCIDENT_SOME")
+    public String incidentSome;
+
+    @Column(name = "REPORT_INCIDENT")
+    public String reportIncident;
+
+    @Column(name = "CYBER_EVENT")
+    public String cyberEvent;
 
 
 }
