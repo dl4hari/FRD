@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -56,6 +57,19 @@ public class FraudIntakeMasterBean implements Serializable {
     public String auditId;
 
     public String auditUpdtTs;
+
+    public String anonymousCd;
+
+    public String email;
+
+    public String phoneNo;
+
+    public String incidentSome;
+
+    public String reportIncident;
+
+    public String cyberEvent;
+
     public List<FraudIntakeObjectBean> fraudIntakeObjects = Collections.singletonList(new FraudIntakeObjectBean());
     private List<FraudIntakeSubjectBean> fraudIntakeSubjectBean = Collections.singletonList(new FraudIntakeSubjectBean());
     private List<FraudIntakeActivityBean> fraudIntakeActivityBean = Collections.singletonList(new FraudIntakeActivityBean());

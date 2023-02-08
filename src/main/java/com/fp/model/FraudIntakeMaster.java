@@ -81,8 +81,8 @@ public class FraudIntakeMaster implements Serializable {
     public String auditUpdtTs;
 
     /////
-//    @Column(name = "ANONYMOUS_CD")
-//    public String anonymousCd;
+    @Column(name = "ANONYMOUS_CD")
+    public String anonymousCd;
 
     @Column(name = "EMAIL")
     public String email;
