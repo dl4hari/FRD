@@ -32,9 +32,6 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String customerId;
 
-    //TODO:: verify
-    public List<ImpactedAccountsBean> impactAccountName = Collections.singletonList(new ImpactedAccountsBean());
-
     public String custTypeCd;
 
     public String acctTakeoverIn;
