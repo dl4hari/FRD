@@ -69,8 +69,10 @@ public class FraudIntakeMasterBean implements Serializable {
     public String cyberEvent;
 
     public List<FraudIntakeObjectBean> fraudIntakeObjects = Collections.singletonList(new FraudIntakeObjectBean());
-    private List<FraudIntakeSubjectBean> fraudIntakeSubjectBean = Collections.singletonList(new FraudIntakeSubjectBean());
-    private List<FraudIntakeActivityBean> fraudIntakeActivityBean = Collections.singletonList(new FraudIntakeActivityBean());
+    private List<FraudIntakeSubjectBeanNew> fraudIntakeSubjectBean =
+            Collections.singletonList(new FraudIntakeSubjectBeanNew());
+    private List<FraudIntakeActivityBeanNew> fraudIntakeActivityBean =
+            Collections.singletonList(new FraudIntakeActivityBeanNew());
 
 
 }
