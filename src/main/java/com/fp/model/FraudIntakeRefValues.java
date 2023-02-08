@@ -2,23 +2,27 @@ package com.fp.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Data
 @Entity
 @Table(name = "FRAUD_INTAKE_REF_VALUES")
 public class FraudIntakeRefValues implements Serializable {
 
-    @EmbeddedId
-    private IntakeRefValueId intakeRefValueId;
-
+    @Id
     @Column(name = "FRAUD_REF_CD", insertable = false, updatable = false)
     public String fraudRefCd;
 
-    @Column(name = "FRAUD_REF_VALUE_ID", insertable = false, updatable = false)
+    @Column(name = "FRAUD_REF_VALUE_ID")
     public String fraudRefValueId;
+
+//
+//    @EmbeddedId
+//    private IntakeRefValueId intakeRefValueId;
 
     @Column(name = "FRAUD_REF_VALUE_CD")
     public String fraudRefValueCd;

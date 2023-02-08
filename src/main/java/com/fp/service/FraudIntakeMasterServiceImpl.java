@@ -2,7 +2,10 @@ package com.fp.service;
 
 import com.fp.beans.*;
 import com.fp.exception.FRMException;
-import com.fp.model.*;
+import com.fp.model.FraudIntakeMaster;
+import com.fp.model.FraudIntakeObject;
+import com.fp.model.FraudIntakeRef;
+import com.fp.model.FraudIntakeValues;
 import com.fp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,35 +47,22 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         fraudIntakeMaster.setFraudIntakeActivityBean(Collections.singletonList(new FraudIntakeActivityBean()));
         fraudIntakeMaster.setFraudIntakeSubjectBean(Collections.singletonList(new FraudIntakeSubjectBean()));
 
-        //preparing code list
+        //code list
         List<FraudIntakeCodeBean> beanList = new ArrayList<>();
         List<FraudIntakeRef> codesList = codesRepository.findAll();
         Map<String, List<String>> dropDownMap = new HashMap<>();
         for (FraudIntakeRef codes : codesList) {
             FraudIntakeCodeBean codeBean = new FraudIntakeCodeBean();
-            codeBean.setFraudRefCd(codes.getFraudRefCd());
+            codeBean.setFraudRefCd(codes.getFraudRefCd());//code
             codeBean.setAuditDt(codes.getAuditDt());
             codeBean.setFraudRefType(codes.getFraudRefType());
             codeBean.setFraudRefDesc(codes.getFraudRefDesc());
             codeBean.setAuditUserId(codes.getAuditUserId());
             codeBean.setUiControlOptionCd(codes.getUiControlOptionCd());
 
-            List<FraudIntakeRefValues> _values = valueRepository.fetchValues(codes.getFraudRefCd());
-            List<FraudIntakeValidValuesBean> list = new ArrayList<>();
-            List<String> values = new ArrayList<>();
-            for (FraudIntakeRefValues validValues : _values) {
-                FraudIntakeValidValuesBean valuesBean = new FraudIntakeValidValuesBean();
-                //valuesBean.setFraudRefValueId(validValues.getFraudRefValueId());
-                valuesBean.setFraudRefValueDesc(validValues.getFraudRefValueDesc());
-                valuesBean.setAuditDt(validValues.getAuditDt());
-                valuesBean.setFraudRefCd(validValues.getFraudRefCd());
-                valuesBean.setFraudRefValueCd(validValues.getFraudRefValueCd());
-                valuesBean.setAuditUserId(validValues.getAuditUserId());
-                list.add(valuesBean);
-                values.add(validValues.getFraudRefValueCd());
-            }
-            codeBean.setFraudIntakeValidValuesBean(list);
-            beanList.add(codeBean);
+            List<String> values = valueRepository.
+                    getValidValues(codes.getFraudRefCd());
+
             if (!values.isEmpty()) {
                 dropDownMap.put(codes.getFraudRefType(), values);
             }
@@ -82,7 +72,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         FraudIntakeMasterRequest bean = new FraudIntakeMasterRequest();
         bean.setValueMap(dropDownMap);
         bean.setFraudIntakeMaster(fraudIntakeMaster);
-        //  bean.setFraudIntakeCodes(beanList);
+        // bean.setFraudIntakeCodes(beanList);
 
         return bean;
     }
