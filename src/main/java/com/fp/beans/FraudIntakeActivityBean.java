@@ -5,14 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Data
 public class FraudIntakeActivityBean implements Serializable {
 
-   // private BigDecimal fraudActivityId;
+    // private BigDecimal fraudActivityId;
 
     private String fraudIntakeId;
 

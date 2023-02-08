@@ -41,8 +41,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         //preparing master
         FraudIntakeMasterBean fraudIntakeMaster = new FraudIntakeMasterBean();
-        fraudIntakeMaster.setFraudIntakeActivityBean(Arrays.asList(new FraudIntakeActivityBean()));
-        fraudIntakeMaster.setFraudIntakeSubjectBean(Arrays.asList(new FraudIntakeSubjectBean()));
+        fraudIntakeMaster.setFraudIntakeActivityBean(Collections.singletonList(new FraudIntakeActivityBean()));
+        fraudIntakeMaster.setFraudIntakeSubjectBean(Collections.singletonList(new FraudIntakeSubjectBean()));
 
         //preparing code list
         List<FraudIntakeCodeBean> beanList = new ArrayList<>();
@@ -170,7 +170,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         bean.setCustomerId(savedMaster.getCustomerId());
 
-       // bean.setImpactAccountName(Arrays.asList(savedMaster.getImpactAccountName().split(",")));
+        // bean.setImpactAccountName(Arrays.asList(savedMaster.getImpactAccountName().split(",")));
 
         bean.setCustTypeCd(savedMaster.getCustTypeCd());
 
@@ -188,7 +188,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         bean.setMatterIdentifiedCd(savedMaster.getMatterIdentifiedCd());
 
-       // bean.setAttachment(savedMaster.getAuditId());
+        // bean.setAttachment(savedMaster.getAuditId());
 
         bean.setAuditId(savedMaster.getAuditId());
 
@@ -212,7 +212,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         master.setSubjectTaxId(bean.getSubjectTaxId());
         master.setCustomerId(bean.getCustomerId());
 
-       // master.setImpactAccountName(String.join(",", bean.getImpactAccountName()));
+        // master.setImpactAccountName(String.join(",", bean.getImpactAccountName()));
 
         master.setCustTypeCd(bean.getCustTypeCd());
         master.setAcctTakeoverIn(bean.getAcctTakeoverIn());

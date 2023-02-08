@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -33,7 +34,7 @@ public class FraudIntakeMasterBean implements Serializable {
     public String customerId;
 
     //TODO:: verify
-    public List<ImpactedAccountsBean> impactAccountName = Arrays.asList(new ImpactedAccountsBean());
+    public List<ImpactedAccountsBean> impactAccountName = Collections.singletonList(new ImpactedAccountsBean());
 
     public String custTypeCd;
 
@@ -55,11 +56,9 @@ public class FraudIntakeMasterBean implements Serializable {
     public String auditId;
 
     public String auditUpdtTs;
-
-    private List<FraudIntakeSubjectBean> fraudIntakeSubjectBean=Arrays.asList(new FraudIntakeSubjectBean());
-    private List<FraudIntakeActivityBean> fraudIntakeActivityBean=Arrays.asList(new FraudIntakeActivityBean());
-    public List<FraudIntakeObjectBean> fraudIntakeObjects=Arrays.asList(new FraudIntakeObjectBean());
-
+    public List<FraudIntakeObjectBean> fraudIntakeObjects = Collections.singletonList(new FraudIntakeObjectBean());
+    private List<FraudIntakeSubjectBean> fraudIntakeSubjectBean = Collections.singletonList(new FraudIntakeSubjectBean());
+    private List<FraudIntakeActivityBean> fraudIntakeActivityBean = Collections.singletonList(new FraudIntakeActivityBean());
 
 
 }
