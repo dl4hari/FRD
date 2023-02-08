@@ -13,9 +13,8 @@ public class IntakeValueId implements Serializable {
     private String intakeId;
     @Column(name = "INTAKE_KEY")
     private String intakeKey;
-    @Column(name = "INTAKE_INDEX")
+    @Column(name = "KEY_INDEX_ID")
     private String keyIndex;
-
 
     public IntakeValueId() {
     }

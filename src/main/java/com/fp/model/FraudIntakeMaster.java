@@ -8,8 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
 @Data
 @Entity
 @Table(name = "FRAUD_INTAKE_MASTER")
