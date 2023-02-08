@@ -17,16 +17,26 @@ import java.io.Serializable;
 @Table(name = "FRAUD_INTAKE_VALUES")
 public class FraudIntakeValues implements Serializable {
 
-    @Column(name = "FRAUD_INTAKE_ID", insertable = false, updatable = false)
-    public String fraudIntakeId;
-    @Column(name = "KEY_INDEX_ID", insertable = false, updatable = false)
-    public String keyIndexId;
-    @Column(name = "INTAKE_KEY", insertable = false, updatable = false)
-    public String intakeKey;
-    @Column(name = "INTAKE_KEY_VALUE")
-    public String intakeKeyValue;
     @EmbeddedId
     private IntakeValueId intakeValueId;
+
+    @Column(name = "FRAUD_INTAKE_ID", insertable = false, updatable = false)
+    public String fraudIntakeId;
+
+    @Column(name = "KEY_INDEX_ID", insertable = false, updatable = false)
+    public String keyIndexId;
+
+    @Column(name = "INTAKE_KEY", insertable = false, updatable = false)
+    public String intakeKey;
+
+    @Column(name = "INTAKE_KEY_VALUE")
+    public String intakeKeyValue;
+
+    @Column(name = "AUDIT_ID")
+    public String auditId;
+
+    @Column(name = "AUDIT_UPDT_TS")
+    public String auditUpdtTs;
 
 
 }

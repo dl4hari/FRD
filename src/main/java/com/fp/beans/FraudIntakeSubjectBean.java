@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Data
 public class FraudIntakeSubjectBean implements Serializable {
 
-    private BigDecimal fraudSubjectId;
+   // private BigDecimal fraudSubjectId;
 
     private String fraudIntakeId;
 
@@ -35,7 +35,7 @@ public class FraudIntakeSubjectBean implements Serializable {
 
     private String empInitial;
 
-    private String transactionRecall;
+   // private String transactionRecall;
 
 
 }

@@ -23,8 +23,10 @@ public class FraudIntakeRef implements Serializable {
 
     @Column(name = "FRAUD_REF_TYPE")
     public String fraudRefType;
+
     @Column(name = "UI_CONTROL_OPTION_CD")
     public String uiControlOptionCd;
+
     @Column(name = "FRAUD_REF_DESC")
     public String fraudRefDesc;
 

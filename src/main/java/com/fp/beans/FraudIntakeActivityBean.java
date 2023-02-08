@@ -12,17 +12,23 @@ import java.math.BigDecimal;
 @Data
 public class FraudIntakeActivityBean implements Serializable {
 
-    private BigDecimal fraudActivityId;
+   // private BigDecimal fraudActivityId;
 
     private String fraudIntakeId;
 
     private String productType;
+    private String typeOfWireTransfer;
 
     private String account;
+
+    private String primarySigner;
+    private String primarySignerEmail;
+    private String primarySignerPhoneNo;
 
     private String accountTitle;
 
     private String accountType;
+    private String referenceNo;
 
     private String transactionAmount;
 

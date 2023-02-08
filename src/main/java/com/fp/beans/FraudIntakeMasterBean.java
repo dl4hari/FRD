@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -22,9 +22,9 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String reportType;
 
-    public String fraudTypeCd;
+    public String fraudTypeId;
 
-    public String subjectIn;
+    public String subjectNm;
 
     public String subjectTypeCd;
 
@@ -32,7 +32,8 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String customerId;
 
-    public List<String> impactAccountName = new ArrayList<>();
+    //TODO:: verify
+    public List<ImpactedAccountsBean> impactAccountName = Arrays.asList(new ImpactedAccountsBean());
 
     public String custTypeCd;
 
@@ -50,14 +51,15 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String matterIdentifiedCd;
 
-    public String attachment;
 
     public String auditId;
 
     public String auditUpdtTs;
 
-    private List<FraudIntakeSubjectBean> fraudIntakeSubjectBean;
-    private List<FraudIntakeActivityBean> fraudIntakeActivityBean;
+    private List<FraudIntakeSubjectBean> fraudIntakeSubjectBean=Arrays.asList(new FraudIntakeSubjectBean());
+    private List<FraudIntakeActivityBean> fraudIntakeActivityBean=Arrays.asList(new FraudIntakeActivityBean());
+    public List<FraudIntakeObjectBean> fraudIntakeObjects=Arrays.asList(new FraudIntakeObjectBean());
+
 
 
 }

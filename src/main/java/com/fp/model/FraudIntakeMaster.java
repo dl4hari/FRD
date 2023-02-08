@@ -1,8 +1,6 @@
 package com.fp.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,11 +26,11 @@ public class FraudIntakeMaster implements Serializable {
 //    @Column(name = "REPORTING_DT")
 //    private Date jobWindowEndDate;
 
-    @Column(name = "REPORT_TYPE")
+    @Column(name = "REPORTING_TYPE")
     public String reportType;
 
-    @Column(name = "FRAUD_TYPE_CD")
-    public String fraudTypeCd;
+    @Column(name = "FRAUD_TYPE_ID")
+    public String fraudTypeId;
 
     @Column(name = "SUBJECT_NM")
     public String subjectIn;
@@ -81,9 +79,10 @@ public class FraudIntakeMaster implements Serializable {
 
     @Column(name = "AUDIT_UPDT_TS")
     public String auditUpdtTs;
+
     /////
-    @Column(name = "ANONYMOUS_CD")
-    public String anonymousCd;
+//    @Column(name = "ANONYMOUS_CD")
+//    public String anonymousCd;
 
     @Column(name = "EMAIL")
     public String email;
