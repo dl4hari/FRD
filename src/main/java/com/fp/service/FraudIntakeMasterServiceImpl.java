@@ -44,8 +44,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         //preparing master
         FraudIntakeMasterBean fraudIntakeMaster = new FraudIntakeMasterBean();
-        fraudIntakeMaster.setFraudIntakeActivityBean(Collections.singletonList(new FraudIntakeActivityBeanNew()));
-        fraudIntakeMaster.setFraudIntakeSubjectBean(Collections.singletonList(new FraudIntakeSubjectBeanNew()));
+      //  fraudIntakeMaster.setFraudIntakeActivityBean(Collections.singletonList(new FraudIntakeActivityBeanNew()));
+        //fraudIntakeMaster.setFraudIntakeSubjectBean(Collections.singletonList(new FraudIntakeSubjectBeanNew()));
 
         //code list
         List<FraudIntakeCodeBean> beanList = new ArrayList<>();
