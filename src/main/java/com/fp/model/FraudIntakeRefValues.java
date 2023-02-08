@@ -11,11 +11,15 @@ import java.math.BigDecimal;
 @Table(name = "FRAUD_INTAKE_REF_VALUES")
 public class FraudIntakeRefValues implements Serializable {
 
-    @Column(name = "FRAUD_REF_CD")
+    @EmbeddedId
+    private IntakeRefValueId intakeRefValueId;
+
+    @Column(name = "FRAUD_REF_CD", insertable = false, updatable = false)
     public String fraudRefCd;
-    @Column(name = "FRAUD_REF_VALUE_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public BigDecimal fraudRefValueId;
+
+    @Column(name = "FRAUD_REF_VALUE_ID", insertable = false, updatable = false)
+    public String fraudRefValueId;
+
     @Column(name = "FRAUD_REF_VALUE_CD")
     public String fraudRefValueCd;
     @Column(name = "FRAUD_REF_VALUE_DESC")
@@ -24,7 +28,6 @@ public class FraudIntakeRefValues implements Serializable {
     public String auditUserId;
     @Column(name = "AUDIT_DT")
     public String auditDt;
-    @EmbeddedId
-    private IntakeRefValueId intakeRefValueId;
+
 
 }

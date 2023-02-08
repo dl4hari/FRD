@@ -5,23 +5,22 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
 @Embeddable
 public class IntakeRefValueId implements Serializable {
-    @Column(name = "FRAUD_INTAKE_ID")
-    private String intakeId;
-    @Column(name = "INTAKE_KEY")
-    private String intakeKey;
-    @Column(name = "KEY_INDEX_ID")
-    private String keyIndex;
+    @Column(name = "FRAUD_REF_CD")
+    public String fraudRefCd;
+
+    @Column(name = "FRAUD_REF_VALUE_ID")
+    public String fraudRefValueId;
 
     public IntakeRefValueId() {
     }
 
-    public IntakeRefValueId(String intakeId, String intakeKey, String keyIndex) {
-        this.intakeId = intakeId;
-        this.intakeKey = intakeKey;
-        this.keyIndex = keyIndex;
+    public IntakeRefValueId(String fraudRefCd, String fraudRefValueId) {
+        this.fraudRefCd = fraudRefCd;
+        this.fraudRefValueId = fraudRefValueId;
     }
 }
