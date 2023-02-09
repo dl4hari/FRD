@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 @Getter
 @Data
 public class FraudIntakeObjectBean implements Serializable {
-    public BigDecimal intakeFileNm;
-    public String fraudIntakeId;
-    public byte[] attachment;
+    public String intakeFileNm;
+    public BigDecimal fraudIntakeId;
+    public String base64EncodedFileContent;
+
 }

@@ -13,13 +13,13 @@ public class FraudIntakeObject implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "INTAKE_OBJECT_ID", insertable = false, updatable = false)
-    public String intakeObjectId;
+    public BigDecimal intakeObjectId;
 
     @Column(name = "FRAUD_INTAKE_ID")
-    public String fraudIntakeId;
+    public BigDecimal fraudIntakeId;
 
     @Column(name = "INTAKE_FILE_NM")
-    public BigDecimal intakeFileNm;
+    public String intakeFileNm;
 
     @Column(name = "INTAKE_BIN_OBJECT")
     public byte[] attachment;
