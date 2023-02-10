@@ -94,6 +94,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             for (FraudIntakeValues intakeValue : subjectValues) {
                 intakeValue.setFraudIntakeId(savedMaster.getFraudIntakeId());
                 intakeValue.setKeyIndexId("" + index++);
+                intakeValue.setAuditId(master.getAuditId());
+                intakeValue.setAuditUpdtTs(now());
                 FraudIntakeValues saved = valueRepo.save(intakeValue);
             }
         }
@@ -107,6 +109,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             for (FraudIntakeValues intakeValue : activity.getActivityValues()) {
                 intakeValue.setFraudIntakeId(savedMaster.getFraudIntakeId());
                 intakeValue.setKeyIndexId("" + index++);
+                intakeValue.setAuditId(master.getAuditId());
+                intakeValue.setAuditUpdtTs(now());
                 FraudIntakeValues saved = valueRepo.save(intakeValue);
             }
         }
@@ -123,6 +127,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             value.setFraudIntakeId(savedMaster.getFraudIntakeId());
             value.setIntakeKey("impactedAccountNumber");
             value.setKeyIndexId("" + index++);
+            value.setAuditId(master.getAuditId());
+            value.setAuditUpdtTs(now());
             value.setIntakeKeyValue(impactedAccountNumber);
             FraudIntakeValues saved = valueRepo.save(value);
 
@@ -133,6 +139,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             value.setIntakeKey("primarySigner");
             value.setKeyIndexId("" + index++);
             value.setIntakeKeyValue(primarySigner);
+            value.setAuditId(master.getAuditId());
+            value.setAuditUpdtTs(now());
             saved = valueRepo.save(value);
 
             String primarySignerEmail = impactedAccountsBean.getPrimarySignerEmail();
@@ -141,6 +149,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             value.setIntakeKey("primarySignerEmail");
             value.setKeyIndexId("" + index++);
             value.setIntakeKeyValue(primarySignerEmail);
+            value.setAuditId(master.getAuditId());
+            value.setAuditUpdtTs(now());
             saved = valueRepo.save(value);
 
             String primarySignerPhoneNo =
@@ -150,6 +160,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             value.setIntakeKey("primarySignerPhoneNo");
             value.setKeyIndexId("" + index++);
             value.setIntakeKeyValue(primarySignerPhoneNo);
+            value.setAuditId(master.getAuditId());
+            value.setAuditUpdtTs(now());
             saved = valueRepo.save(value);
         }
 
