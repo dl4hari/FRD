@@ -32,6 +32,8 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String customerId;
 
+    public String impactAccountName;
+
     public String custTypeCd;
 
     public String acctTakeoverIn;
@@ -47,6 +49,7 @@ public class FraudIntakeMasterBean implements Serializable {
     public String referralDeptNm;
 
     public String matterIdentifiedCd;
+
 
 
     public String auditId;

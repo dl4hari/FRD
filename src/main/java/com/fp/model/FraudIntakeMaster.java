@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @Entity
@@ -26,10 +27,10 @@ public class FraudIntakeMaster implements Serializable {
 //    @Column(name = "REPORTING_DT")
 //    private Date jobWindowEndDate;
 
-    @Column(name = "REPORTING_TYPE")
+    @Column(name = "REPORT_TYPE")
     public String reportType;
 
-    @Column(name = "FRAUD_TYPE_ID")
+    @Column(name = "FRAUD_TYPE_CD")
     public String fraudTypeId;
 
     @Column(name = "SUBJECT_NM")

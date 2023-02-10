@@ -160,6 +160,8 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             FraudIntakeObject object = new FraudIntakeObject();
             object.setFraudIntakeId(master.getFraudIntakeId());
             object.setIntakeFileNm(fraudIntakeObjectBean.getIntakeFileNm());
+            object.setAuditId(master.getAuditId());
+            object.setAuditUpdtTs(now());
             byte[] fileContent = Base64.getDecoder().decode(fraudIntakeObjectBean.getBase64EncodedFileContent());
             object.setAttachment(fileContent);
             objRepo.save(object);
@@ -208,7 +210,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         bean.setAuditId(savedMaster.getAuditId());
 
-        bean.setAuditUpdtTs(savedMaster.getAuditUpdtTs());
+        bean.setAuditUpdtTs(now());
 
 
         return bean;
@@ -244,6 +246,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         master.setIncidentSome(bean.getIncidentSome());
         master.setReportIncident(bean.getReportIncident());
         master.setCyberEvent(bean.getCyberEvent());
+        master.setImpactAccountName(bean.getImpactAccountName());
 
         return master;
     }
