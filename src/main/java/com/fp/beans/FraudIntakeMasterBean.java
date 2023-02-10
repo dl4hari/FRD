@@ -51,7 +51,6 @@ public class FraudIntakeMasterBean implements Serializable {
     public String matterIdentifiedCd;
 
 
-
     public String auditId;
 
     public String auditUpdtTs;

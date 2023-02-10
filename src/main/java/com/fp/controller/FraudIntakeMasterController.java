@@ -28,7 +28,7 @@ public class FraudIntakeMasterController {
         try {
             FraudIntakeMasterRequest = fraudIntakeMasterService.addNew();
         } catch (Exception e) {
-           throw  new FRMException("FraudIntake Load API failed, reason- " + ExceptionUtils.getStackTrace(e),
+            throw new FRMException("FraudIntake Load API failed, reason- " + ExceptionUtils.getStackTrace(e),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(FraudIntakeMasterRequest, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class FraudIntakeMasterController {
             savedFraudIntakeMasterBean = fraudIntakeMasterService.save(fraudIntakeMasterBean);
 
         } catch (Exception e) {
-           throw new FRMException("FraudIntake Save API failed, reason " + ExceptionUtils.getStackTrace(e),
+            throw new FRMException("FraudIntake Save API failed, reason " + ExceptionUtils.getStackTrace(e),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(savedFraudIntakeMasterBean, HttpStatus.CREATED);
