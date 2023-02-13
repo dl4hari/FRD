@@ -2,10 +2,7 @@ package com.fp.service;
 
 import com.fp.beans.*;
 import com.fp.exception.FRMException;
-import com.fp.model.FraudIntakeMaster;
-import com.fp.model.FraudIntakeObject;
-import com.fp.model.FraudIntakeRef;
-import com.fp.model.FraudIntakeValues;
+import com.fp.model.*;
 import com.fp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,14 +86,20 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         //subject
         List<FraudIntakeSubjectBeanNew> subjectList = bean.getFraudIntakeMaster().getFraudIntakeSubjectBean();
         for (FraudIntakeSubjectBeanNew subject : subjectList) {
-            List<FraudIntakeValues> subjectValues = subject.getSubjectValues();
+            List<FraudIntakeValuesBean> subjectValues = subject.getSubjectValues();
             int index = 0;
-            for (FraudIntakeValues intakeValue : subjectValues) {
-                intakeValue.setFraudIntakeId(savedMaster.getFraudIntakeId());
-                intakeValue.setKeyIndexId("" + index++);
-                intakeValue.setAuditId(master.getAuditId());
-                intakeValue.setAuditUpdtTs(now());
-                FraudIntakeValues saved = valueRepo.save(intakeValue);
+            String indexStr = "";
+            for (FraudIntakeValuesBean intakeValue : subjectValues) {
+                FraudIntakeValues dbFIN = new FraudIntakeValues();
+                indexStr = String.valueOf(index++);
+
+                dbFIN.setIntakeValueId(new IntakeValueId(master.getFraudIntakeId(),
+                        indexStr));
+                dbFIN.setIntakeKey(intakeValue.getIntakeKey());
+                dbFIN.setIntakeKeyValue(intakeValue.getIntakeKeyValue());
+                dbFIN.setAuditId(master.getAuditId());
+                dbFIN.setAuditUpdtTs(now());
+                FraudIntakeValues saved = valueRepo.save(dbFIN);
             }
         }
 
@@ -106,63 +109,89 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         for (FraudIntakeActivityBeanNew activity : activityList) {
             int index = 0;
-            for (FraudIntakeValues intakeValue : activity.getActivityValues()) {
-                intakeValue.setFraudIntakeId(savedMaster.getFraudIntakeId());
-                intakeValue.setKeyIndexId("" + index++);
-                intakeValue.setAuditId(master.getAuditId());
-                intakeValue.setAuditUpdtTs(now());
-                FraudIntakeValues saved = valueRepo.save(intakeValue);
+            String indexStr = "";
+            for (FraudIntakeValuesBean intakeValue : activity.getActivityValues()) {
+                FraudIntakeValues dbFIN = new FraudIntakeValues();
+                indexStr = String.valueOf(index++);
+                dbFIN.setIntakeValueId(new IntakeValueId(master.getFraudIntakeId(),
+                        indexStr));
+                dbFIN.setIntakeKey(intakeValue.getIntakeKey());
+                dbFIN.setIntakeKeyValue(intakeValue.getIntakeKeyValue());
+                dbFIN.setAuditId(master.getAuditId());
+                dbFIN.setAuditUpdtTs(now());
+                FraudIntakeValues saved = valueRepo.save(dbFIN);
             }
+        }
+        //impacted acc numbers
+        List<String> impactedAccountsNbrList =
+                bean.getFraudIntakeMaster().getImpactAccountNumbers();
+        int index = 0;
+        String indexStr = "";
+        FraudIntakeValues dbFIN = null;
+        for (String impactedAccountNumberVal : impactedAccountsNbrList) {
+            String keyName = "impactedAccountNumber";
+            indexStr = String.valueOf(index++);
+            dbFIN = new FraudIntakeValues();
+            dbFIN.setIntakeValueId(new IntakeValueId(master.getFraudIntakeId(),
+                    indexStr));
+            dbFIN.setIntakeKey(keyName);
+            dbFIN.setIntakeKeyValue(impactedAccountNumberVal);
+            dbFIN.setAuditId(master.getAuditId());
+            dbFIN.setAuditUpdtTs(now());
+            FraudIntakeValues saved = valueRepo.save(dbFIN);
         }
 
         //impacted acc
         List<ImpactedAccountsBean> impactedAccountsBeanList =
                 bean.getFraudIntakeMaster().getImpactedAccounts();
-        int index = 0;
+        index = 0;
+        indexStr = "";
+        dbFIN = null;
         for (ImpactedAccountsBean impactedAccountsBean : impactedAccountsBeanList) {
+            String keyName = "impactedAccountNumber";
+            indexStr = String.valueOf(index++);
+            dbFIN = new FraudIntakeValues();
+            dbFIN.setIntakeValueId(new IntakeValueId(master.getFraudIntakeId(),
+                    indexStr));
+            dbFIN.setIntakeKey(keyName);
+            dbFIN.setIntakeKeyValue(impactedAccountsBean.getImpactedAccountNumber());
+            dbFIN.setAuditId(master.getAuditId());
+            dbFIN.setAuditUpdtTs(now());
+            FraudIntakeValues saved = valueRepo.save(dbFIN);
 
-            String impactedAccountNumber =
-                    impactedAccountsBean.getImpactedAccountNumber();
-            FraudIntakeValues value = new FraudIntakeValues();
-            value.setFraudIntakeId(savedMaster.getFraudIntakeId());
-            value.setIntakeKey("impactedAccountNumber");
-            value.setKeyIndexId("" + index++);
-            value.setAuditId(master.getAuditId());
-            value.setAuditUpdtTs(now());
-            value.setIntakeKeyValue(impactedAccountNumber);
-            FraudIntakeValues saved = valueRepo.save(value);
 
+            keyName = "primarySigner";
+            indexStr = String.valueOf(index++);
+            dbFIN = new FraudIntakeValues();
+            dbFIN.setIntakeValueId(new IntakeValueId(master.getFraudIntakeId(),
+                    indexStr));
+            dbFIN.setIntakeKey(keyName);
+            dbFIN.setIntakeKeyValue(impactedAccountsBean.getPrimarySigner());
+            dbFIN.setAuditId(master.getAuditId());
+            dbFIN.setAuditUpdtTs(now());
+            saved = valueRepo.save(dbFIN);
 
-            String primarySigner = impactedAccountsBean.getPrimarySigner();
-            value = new FraudIntakeValues();
-            value.setFraudIntakeId(savedMaster.getFraudIntakeId());
-            value.setIntakeKey("primarySigner");
-            value.setKeyIndexId("" + index++);
-            value.setIntakeKeyValue(primarySigner);
-            value.setAuditId(master.getAuditId());
-            value.setAuditUpdtTs(now());
-            saved = valueRepo.save(value);
+            keyName = "primarySignerEmail";
+            indexStr = String.valueOf(index++);
+            dbFIN = new FraudIntakeValues();
+            dbFIN.setIntakeValueId(new IntakeValueId(master.getFraudIntakeId(),
+                    indexStr));
+            dbFIN.setIntakeKey(keyName);
+            dbFIN.setIntakeKeyValue(impactedAccountsBean.getPrimarySignerEmail());
+            dbFIN.setAuditId(master.getAuditId());
+            dbFIN.setAuditUpdtTs(now());
+            saved = valueRepo.save(dbFIN);
 
-            String primarySignerEmail = impactedAccountsBean.getPrimarySignerEmail();
-            value = new FraudIntakeValues();
-            value.setFraudIntakeId(savedMaster.getFraudIntakeId());
-            value.setIntakeKey("primarySignerEmail");
-            value.setKeyIndexId("" + index++);
-            value.setIntakeKeyValue(primarySignerEmail);
-            value.setAuditId(master.getAuditId());
-            value.setAuditUpdtTs(now());
-            saved = valueRepo.save(value);
-
-            String primarySignerPhoneNo =
-                    impactedAccountsBean.getPrimarySignerPhoneNo();
-            value = new FraudIntakeValues();
-            value.setFraudIntakeId(savedMaster.getFraudIntakeId());
-            value.setIntakeKey("primarySignerPhoneNo");
-            value.setKeyIndexId("" + index++);
-            value.setIntakeKeyValue(primarySignerPhoneNo);
-            value.setAuditId(master.getAuditId());
-            value.setAuditUpdtTs(now());
-            saved = valueRepo.save(value);
+            keyName = "primarySignerPhoneNo";
+            indexStr = String.valueOf(index++);
+            dbFIN = new FraudIntakeValues();
+            dbFIN.setIntakeValueId(new IntakeValueId(master.getFraudIntakeId(),
+                    indexStr));
+            dbFIN.setIntakeKey(keyName);
+            dbFIN.setIntakeKeyValue(impactedAccountsBean.getPrimarySignerPhoneNo());
+            dbFIN.setAuditId(master.getAuditId());
+            dbFIN.setAuditUpdtTs(now());
+            saved = valueRepo.save(dbFIN);
         }
 
 
@@ -176,7 +205,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             object.setAuditUpdtTs(now());
             byte[] fileContent = Base64.getDecoder().decode(fraudIntakeObjectBean.getBase64EncodedFileContent());
             object.setAttachment(fileContent);
-            objRepo.save(object);
+            // objRepo.save(object);
         }
         bean.setFraudIntakeMaster(fraudIntakeMaster);
 
@@ -200,8 +229,6 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
         bean.setCustomerId(savedMaster.getCustomerId());
 
-        // bean.setImpactAccountName(Arrays.asList(savedMaster.getImpactAccountName().split(",")));
-
         bean.setCustTypeCd(savedMaster.getCustTypeCd());
 
         bean.setAcctTakeoverIn(savedMaster.getAcctTakeoverIn());
@@ -217,8 +244,6 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         bean.setReferralDeptNm(savedMaster.getReferralDeptNm());
 
         bean.setMatterIdentifiedCd(savedMaster.getMatterIdentifiedCd());
-
-        // bean.setAttachment(savedMaster.getAuditId());
 
         bean.setAuditId(savedMaster.getAuditId());
 
@@ -258,7 +283,7 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         master.setIncidentSome(bean.getIncidentSome());
         master.setReportIncident(bean.getReportIncident());
         master.setCyberEvent(bean.getCyberEvent());
-        master.setImpactAccountName(bean.getImpactAccountName());
+        // master.setImpactAccountName(bean.getImpactAccountName());
 
         return master;
     }

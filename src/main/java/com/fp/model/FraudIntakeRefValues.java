@@ -20,10 +20,6 @@ public class FraudIntakeRefValues implements Serializable {
     @Column(name = "FRAUD_REF_VALUE_ID")
     public String fraudRefValueId;
 
-//
-//    @EmbeddedId
-//    private IntakeRefValueId intakeRefValueId;
-
     @Column(name = "FRAUD_REF_VALUE_CD")
     public String fraudRefValueCd;
     @Column(name = "FRAUD_REF_VALUE_DESC")

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class FraudIntakeObject implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "INTAKE_OBJECT_ID", insertable = false, updatable = false)
+    @Column(name = "INTAKE_OBJECT_ID")
     public BigDecimal intakeObjectId;
 
     @Column(name = "FRAUD_INTAKE_ID")

@@ -1,5 +1,6 @@
 package com.fp.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fp.beans.FraudIntakeMasterRequest;
 import com.fp.exception.FRMException;
 import com.fp.service.FraudIntakeMasterService;
@@ -40,6 +41,8 @@ public class FraudIntakeMasterController {
         FraudIntakeMasterRequest savedFraudIntakeMasterBean;
 
         try {
+            String s = new ObjectMapper().writeValueAsString(new FraudIntakeMasterRequest());
+
             savedFraudIntakeMasterBean = fraudIntakeMasterService.save(fraudIntakeMasterBean);
 
         } catch (Exception e) {

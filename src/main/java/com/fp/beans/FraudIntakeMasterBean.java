@@ -32,7 +32,7 @@ public class FraudIntakeMasterBean implements Serializable {
 
     public String customerId;
 
-    public String impactAccountName;
+    public List<String> impactAccountNumbers;
 
     public String custTypeCd;
 
