@@ -203,9 +203,12 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             object.setIntakeFileNm(fraudIntakeObjectBean.getIntakeFileNm());
             object.setAuditId(master.getAuditId());
             object.setAuditUpdtTs(now());
-            byte[] fileContent = Base64.getDecoder().decode(fraudIntakeObjectBean.getBase64EncodedFileContent());
+            String content = fraudIntakeObjectBean.getBase64EncodedFileContent();
+            content.replaceFirst("data:text/plain;base64,", "");
+
+            byte[] fileContent = Base64.getDecoder().decode(content);
             object.setAttachment(fileContent);
-            // objRepo.save(object);
+            objRepo.save(object);
         }
         bean.setFraudIntakeMaster(fraudIntakeMaster);
 
