@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Getter
-@Setter
 @Data
 @Entity
 @Table(name = "FRAUD_INTAKE_VALUES")
@@ -24,8 +22,7 @@ public class FraudIntakeValues implements Serializable {
     public String auditId;
     @Column(name = "AUDIT_UPDT_TS")
     public String auditUpdtTs;
-    @Column(name = "INTAKE_KEY")
-    private String intakeKey;
+
     @EmbeddedId
     private IntakeValueId intakeValueId;
 

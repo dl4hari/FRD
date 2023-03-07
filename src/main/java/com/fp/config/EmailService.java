@@ -24,7 +24,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender emailSender;
 
-    @Autowired
+   // @Autowired
     private Configuration freemarkerConfig;
 
     public void sendEmail(Mail mail) throws MessagingException, IOException, TemplateException {
