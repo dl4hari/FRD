@@ -75,27 +75,23 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
     @Override
     public FraudIntakeMasterRequest save(FraudIntakeMasterRequest bean) throws FRMException {
-
+        int index = 0;
         //master
         FraudIntakeMaster master = prepareMasterFromBean(bean.getFraudIntakeMaster());
 
         FraudIntakeMaster savedMaster = masterRepo.save(master);
 
-        FraudIntakeMasterBean fraudIntakeMaster = prepareBeanFromMaster(savedMaster);
+        //FraudIntakeMasterBean fraudIntakeMaster = prepareBeanFromMaster(savedMaster);
 
         //subject
         List<FraudIntakeSubjectBeanNew> subjectList = bean.getFraudIntakeMaster().getFraudIntakeSubjectBean();
         for (FraudIntakeSubjectBeanNew subject : subjectList) {
             List<FraudIntakeValuesBean> subjectValues = subject.getSubjectValues();
-            int index = 0;
-            String indexStr = "";
+
             for (FraudIntakeValuesBean intakeValue : subjectValues) {
                 FraudIntakeValues dbFIN = new FraudIntakeValues();
-                indexStr = String.valueOf(index++);
-
                 dbFIN.setIntakeValueId(new IntakeValueId(savedMaster.getFraudIntakeId(),
-                        indexStr, intakeValue.getIntakeKey()));
-                //dbFIN.setIntakeKey(intakeValue.getIntakeKey());
+                        String.valueOf(index++), intakeValue.getIntakeKey()));
                 dbFIN.setIntakeKeyValue(intakeValue.getIntakeKeyValue());
                 dbFIN.setAuditId(savedMaster.getAuditId());
                 dbFIN.setAuditUpdtTs(now());
@@ -108,34 +104,25 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
                 bean.getFraudIntakeMaster().getFraudIntakeActivityBean();
 
         for (FraudIntakeActivityBeanNew activity : activityList) {
-            int index = 0;
-            String indexStr = "";
             for (FraudIntakeValuesBean intakeValue : activity.getActivityValues()) {
                 FraudIntakeValues dbFIN = new FraudIntakeValues();
-                indexStr = ""+ index;
                 dbFIN.setIntakeValueId(new IntakeValueId(savedMaster.getFraudIntakeId(),
-                        indexStr, intakeValue.getIntakeKey()));
-                //dbFIN.setIntakeKey(intakeValue.getIntakeKey());
+                        String.valueOf(index++), intakeValue.getIntakeKey()));
                 dbFIN.setIntakeKeyValue(intakeValue.getIntakeKeyValue());
                 dbFIN.setAuditId(savedMaster.getAuditId());
                 dbFIN.setAuditUpdtTs(now());
                 FraudIntakeValues saved = valueRepo.save(dbFIN);
-                index = index + 1;
             }
         }
         //impacted acc numbers
         List<String> impactedAccountsNbrList =
                 bean.getFraudIntakeMaster().getImpactAccountNumbers();
-        int index = 0;
-        String indexStr = "";
         FraudIntakeValues dbFIN = null;
         for (String impactedAccountNumberVal : impactedAccountsNbrList) {
             String keyName = "impactedAccountNumber";
-            indexStr = String.valueOf(index++);
             dbFIN = new FraudIntakeValues();
             dbFIN.setIntakeValueId(new IntakeValueId(savedMaster.getFraudIntakeId(),
-                    indexStr, keyName));
-           // dbFIN.setIntakeKey(keyName);
+                    String.valueOf(index++), keyName));
             dbFIN.setIntakeKeyValue(impactedAccountNumberVal);
             dbFIN.setAuditId(savedMaster.getAuditId());
             dbFIN.setAuditUpdtTs(now());
@@ -145,16 +132,12 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         //impacted acc
         List<ImpactedAccountsBean> impactedAccountsBeanList =
                 bean.getFraudIntakeMaster().getImpactedAccounts();
-        index = 0;
-        indexStr = "";
         dbFIN = null;
         for (ImpactedAccountsBean impactedAccountsBean : impactedAccountsBeanList) {
             String keyName = "impactedAccountNumber";
-            indexStr = String.valueOf(index++);
             dbFIN = new FraudIntakeValues();
             dbFIN.setIntakeValueId(new IntakeValueId(savedMaster.getFraudIntakeId(),
-                    indexStr, keyName));
-            //dbFIN.setIntakeKey(keyName);
+                    String.valueOf(index++), keyName));
             dbFIN.setIntakeKeyValue(impactedAccountsBean.getImpactedAccountNumber());
             dbFIN.setAuditId(savedMaster.getAuditId());
             dbFIN.setAuditUpdtTs(now());
@@ -162,33 +145,27 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
 
 
             keyName = "primarySigner";
-            indexStr = String.valueOf(index++);
             dbFIN = new FraudIntakeValues();
             dbFIN.setIntakeValueId(new IntakeValueId(savedMaster.getFraudIntakeId(),
-                    indexStr, keyName));
-            //dbFIN.setIntakeKey(keyName);
+                    String.valueOf(index++), keyName));
             dbFIN.setIntakeKeyValue(impactedAccountsBean.getPrimarySigner());
             dbFIN.setAuditId(savedMaster.getAuditId());
             dbFIN.setAuditUpdtTs(now());
             saved = valueRepo.save(dbFIN);
 
             keyName = "primarySignerEmail";
-            indexStr = String.valueOf(index++);
             dbFIN = new FraudIntakeValues();
             dbFIN.setIntakeValueId(new IntakeValueId(savedMaster.getFraudIntakeId(),
-                    indexStr, keyName));
-            //dbFIN.setIntakeKey(keyName);
+                    String.valueOf(index++), keyName));
             dbFIN.setIntakeKeyValue(impactedAccountsBean.getPrimarySignerEmail());
             dbFIN.setAuditId(savedMaster.getAuditId());
             dbFIN.setAuditUpdtTs(now());
             saved = valueRepo.save(dbFIN);
 
             keyName = "primarySignerPhoneNo";
-            indexStr = String.valueOf(index++);
             dbFIN = new FraudIntakeValues();
             dbFIN.setIntakeValueId(new IntakeValueId(savedMaster.getFraudIntakeId(),
-                    indexStr, keyName));
-           // dbFIN.setIntakeKey(keyName);
+                    String.valueOf(index++), keyName));
             dbFIN.setIntakeKeyValue(impactedAccountsBean.getPrimarySignerPhoneNo());
             dbFIN.setAuditId(savedMaster.getAuditId());
             dbFIN.setAuditUpdtTs(now());
@@ -211,9 +188,14 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
             object.setAttachment(fileContent);
             objRepo.save(object);
         }
-        bean.setFraudIntakeMaster(fraudIntakeMaster);
 
+        //update response and return
+        FraudIntakeMasterBean respMaster = bean.getFraudIntakeMaster();
+        respMaster.setFraudIntakeId(savedMaster.getFraudIntakeId());
+        respMaster.setAuditUpdtTs(savedMaster.getAuditUpdtTs());
+        respMaster.setAuditId(savedMaster.getAuditId());
 
+        bean.setFraudIntakeMaster(respMaster);
         return bean;
     }
 

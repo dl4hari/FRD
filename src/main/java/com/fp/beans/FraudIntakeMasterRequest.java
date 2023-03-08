@@ -13,6 +13,5 @@ import java.util.Map;
 @NoArgsConstructor
 public class FraudIntakeMasterRequest implements Serializable {
     private FraudIntakeMasterBean fraudIntakeMaster;
-    // private List<FraudIntakeCodeBean> fraudIntakeCodes;
     private Map<String, List<String>> valueMap;
 }
