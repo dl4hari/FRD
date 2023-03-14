@@ -15,21 +15,22 @@ public class IntakeValueId implements Serializable {
     @Column(name = "FRAUD_INTAKE_ID")
     @NotNull
     private BigDecimal intakeId;
+
+    @Column(name = "ROW_ID")
+    @NotNull
+    private String rowId;
+
     @Column(name = "KEY_INDEX_ID")
     @NotNull
     private String keyIndex;
 
-    @Column(name = "INTAKE_KEY")
-    @NotNull
-    private String intakeKey;
-
     public IntakeValueId() {
     }
 
-    public IntakeValueId(BigDecimal intakeId, String keyIndex, String intakeKey) {
+    public IntakeValueId(BigDecimal intakeId, String rowId,  String keyIndex) {
         this.intakeId = intakeId;
         this.keyIndex = keyIndex;
-        this.intakeKey = intakeKey;
+        this.rowId = rowId;
     }
 
     @Override
@@ -40,11 +41,11 @@ public class IntakeValueId implements Serializable {
         return
                 Objects.equals(intakeId, that.intakeId)
                         && Objects.equals(keyIndex, that.keyIndex)
-        && Objects.equals(intakeKey, that.intakeKey);
+        && Objects.equals(rowId, that.rowId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(intakeId, keyIndex, intakeKey);
+        return Objects.hash(intakeId, keyIndex, rowId);
     }
 }
