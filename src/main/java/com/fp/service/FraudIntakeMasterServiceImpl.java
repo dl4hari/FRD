@@ -27,6 +27,10 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
     @Autowired
     FraudIntakeRefValuesRepository refValuesRepo;
 
+
+    @Autowired
+    FraudIntakeLookupRepository lookupRepository;
+
     @Autowired
     FraudIntakeValuesRepository valueRepo;
 
@@ -37,7 +41,14 @@ public class FraudIntakeMasterServiceImpl implements FraudIntakeMasterService {
         return sdf.format(cal.getTime());
     }
 
+
     @Override
+    public List<FraudIntakeLookups> lookups(FraudIntakeLookupRequest lookupRequest)
+            throws FRMException {
+        return lookupRepository.findAllByLookupCodeAndLookupType(lookupRequest.getLookupCode(), lookupRequest.getLookupType());
+
+    }
+        @Override
     public FraudIntakeMasterRequest addNew() throws FRMException {
 
         //preparing master
